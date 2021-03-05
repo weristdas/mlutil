@@ -38,6 +38,8 @@ class KCA:
             x[0]: smoothed state means of position velocity and acceleration
             x[1]: smoothed state covar of position velocity and acceleration
         """
+        if not self._fitted:
+            raise Exception('The KCA model is not fit yet.')
         # Smooth
         x_mean, x_covar = kf.smooth(z)
         # Forecast
@@ -65,7 +67,7 @@ class KCA:
         # Fit the KCA
         self.fit(t, z, q)
         # predict
-        return self.predict(t, fwd)
+        return self.predict(z, fwd)
 
 
 

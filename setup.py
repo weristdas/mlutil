@@ -11,5 +11,5 @@ setup(
    author_email='yanjie@ict.ac.cn, jiey@msr',
    packages=['mlutil'],
    url="http://weristdas",
-   install_requires=['numpy', 'pandas'], #external dependent packages
+   install_requires=['numpy', 'pandas', 'pykalman'], #external dependent packages
 )
