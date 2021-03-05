@@ -41,16 +41,16 @@ class KCA:
         if not self._fitted:
             raise Exception('The KCA model is not fit yet.')
         # Smooth
-        x_mean, x_covar = kf.smooth(z)
+        x_mean, x_covar = self._kf.smooth(z)
         # Forecast
         for fwd_ in range(fwd):
-            x_mean_,x_covar_=kf.filter_update(filtered_state_mean=x_mean[-1], \
+            x_mean_,x_covar_ = self._kf.filter_update(filtered_state_mean=x_mean[-1], \
                 filtered_state_covariance=x_covar[-1])
-            x_mean=np.append(x_mean,x_mean_.reshape(1,-1),axis=0)
-            x_covar_=np.expand_dims(x_covar_,axis=0)
-            x_covar=np.append(x_covar,x_covar_,axis=0)
+            x_mean = np.append(x_mean,x_mean_.reshape(1,-1),axis=0)
+            x_covar_ = np.expand_dims(x_covar_,axis=0)
+            x_covar = np.append(x_covar,x_covar_,axis=0)
         # Standize series
-        x_std=(x_covar[:,0,0]**.5).reshape(-1,1)
+        x_std =(x_covar[:,0,0]**.5).reshape(-1,1)
         for i in range(1,x_covar.shape[1]):
             x_std_ = x_covar[:,i,i]**.5
             x_std = np.append(x_std,x_std_.reshape(-1,1),axis=1)
